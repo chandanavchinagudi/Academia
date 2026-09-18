@@ -1,0 +1,4243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>SkillBridge</title>
+
+  <style>
+    :root {
+      --primary: #3157d5;
+      --dark: #111b3e;
+      --background: #f4f7fb;
+      --white: #ffffff;
+      --text: #18233d;
+      --muted: #74809b;
+      --border: #e1e7f0;
+      --success: #159b69;
+      --danger: #d34d4d;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--background);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .landing {
+      min-height: 100vh;
+      padding: 30px 8%;
+      color: white;
+      background: linear-gradient(135deg, #101b43, #3157d5);
+    }
+
+    .navbar,
+    .topbar,
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+    .hero {
+      max-width: 760px;
+      padding-top: 15vh;
+    }
+
+    .hero h1 {
+      margin: 20px 0;
+      font-size: clamp(40px, 7vw, 76px);
+      line-height: 1.04;
+    }
+
+    .hero p {
+      color: #dce5ff;
+      font-size: 19px;
+      line-height: 1.7;
+    }
+
+    .login {
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      padding: 20px;
+      background: #eef2ff;
+    }
+
+    .box {
+      width: min(560px, 100%);
+      padding: 30px;
+      border-radius: 18px;
+      background: white;
+      box-shadow: 0 20px 55px #1c367522;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 20px 0;
+      gap: 5px;
+    }
+
+    .tabs button {
+      flex: 1;
+      min-width: 100px;
+      padding: 10px;
+      border: 0;
+      border-radius: 7px;
+      color: #53627e;
+      background: #edf1fb;
+    }
+
+    .tabs button.active {
+      color: white;
+      background: #3157d5;
+    }
+
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #d9e1ef;
+      border-radius: 8px;
+      background: white;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .btn {
+      display: inline-block;
+      margin: 5px 0;
+      padding: 11px 16px;
+      border: 0;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
+    .primary {
+      color: white;
+      background: #3157d5;
+    }
+
+    .light {
+      color: #3157d5;
+      background: white;
+    }
+
+    .outline {
+      color: #3157d5;
+      border: 1px solid #cbd5ee;
+      background: white;
+    }
+
+    .danger {
+      color: #a83232;
+      background: #ffe7e7;
+    }
+
+    .success {
+      color: #087149;
+      background: #e1f8ed;
+    }
+
+    .shell {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .side {
+      width: 250px;
+      padding: 22px 14px;
+      flex-shrink: 0;
+      color: #dce5ff;
+      background: #111b3e;
+    }
+
+    .side .logo {
+      margin: 0 10px 28px;
+    }
+
+    .nav button {
+      display: block;
+      width: 100%;
+      margin: 4px 0;
+      padding: 12px;
+      border: 0;
+      border-radius: 8px;
+      color: #cbd5f5;
+      background: transparent;
+      text-align: left;
+    }
+
+    .nav button.active,
+    .nav button:hover {
+      color: white;
+      background: #3157d5;
+    }
+
+    .main {
+      min-width: 0;
+      flex: 1;
+      padding: 25px;
+    }
+
+    .topbar {
+      margin-bottom: 25px;
+    }
+
+    .topbar h1 {
+      margin: 0 0 5px;
+    }
+
+    .muted {
+      color: #74809b;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 18px;
+      gap: 18px;
+    }
+
+    .card {
+      padding: 19px;
+      border: 1px solid #e1e7f0;
+      border-radius: 14px;
+      background: white;
+      box-shadow: 0 5px 17px #1d37600b;
+    }
+
+    .card h2 {
+      margin: 7px 0 13px;
+      color: #3157d5;
+    }
+
+    .tag {
+      display: inline-block;
+      margin: 3px;
+      padding: 5px 9px;
+      border-radius: 15px;
+      color: #3157d5;
+      background: #edf1ff;
+      font-size: 12px;
+    }
+
+    .progress {
+      height: 9px;
+      margin: 8px 0 15px;
+      overflow: hidden;
+      border-radius: 10px;
+      background: #e9edf5;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        #3157d5,
+        #778bff
+      );
+    }
+
+    .table-wrap {
+      overflow: auto;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+    }
+
+    .table th,
+    .table td {
+      padding: 12px;
+      border-bottom: 1px solid #edf0f5;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .table th {
+      color: #74809b;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .empty {
+      padding: 35px;
+      color: #74809b;
+      text-align: center;
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 100;
+      padding: 14px 18px;
+      color: white;
+      border-radius: 9px;
+      background: #17244e;
+      box-shadow: 0 12px 30px #0003;
+    }
+
+    @media (max-width: 900px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .shell {
+        display: block;
+      }
+
+      .side {
+        width: 100%;
+      }
+
+      .nav {
+        display: flex;
+        overflow: auto;
+        gap: 4px;
+      }
+
+      .nav button {
+        min-width: max-content;
+      }
+
+      .main {
+        padding: 16px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 100px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <div id="toast"></div>
+
+  <script>    const KEY =
+      "skillbridge_partwise_complete_v1";
+
+    const SEED = {
+      students: [
+        {
+          id: "student-1",
+          name: "Aarav Sharma",
+          email: "aarav@example.com",
+          password: "student123",
+          collegeId: "college-1",
+          branch: "Computer Science",
+          year: "Final Year",
+          profile: 88,
+
+          skills: [
+            {
+              name: "JavaScript",
+              level: 82
+            },
+            {
+              name: "HTML/CSS",
+              level: 90
+            },
+            {
+              name: "SQL",
+              level: 68
+            }
+          ],
+
+          certificates: [],
+
+          applications: [
+            {
+              id: "application-1",
+              opportunityId: "job-1",
+              status: "Shortlisted",
+              date: "2026-08-12"
+            }
+          ],
+
+          notifications: []
+        }
+      ],
+
+      colleges: [
+        {
+          id: "college-1",
+          name: "ABC Institute of Technology",
+          email: "admin@abc.edu",
+          password: "college123",
+          location: "Bengaluru"
+        }
+      ],
+
+      industries: [
+        {
+          id: "industry-1",
+          name: "TechNova Solutions",
+          email: "admin@technova.com",
+          password: "industry123",
+          location: "Bengaluru",
+
+          jobs: [
+            {
+              id: "job-1",
+              title: "Frontend Developer",
+              location: "Bengaluru",
+              mode: "Hybrid",
+              salary: "8-12 LPA",
+              skills: [
+                "JavaScript",
+                "HTML/CSS",
+                "Git"
+              ]
+            }
+          ],
+
+          internships: []
+        }
+      ],
+
+      collaborations: [],
+      placements: [],
+      training: []
+    };
+
+    let database = loadDatabase();
+    let currentRole = "student";
+    let currentPage = "Dashboard";
+    let session = null;
+
+    function loadDatabase() {
+      const saved =
+        localStorage.getItem(KEY);
+
+      if (!saved) {
+        const fresh =
+          JSON.parse(
+            JSON.stringify(SEED)
+          );
+
+        localStorage.setItem(
+          KEY,
+          JSON.stringify(fresh)
+        );
+
+        return fresh;
+      }
+
+      try {
+        const data = JSON.parse(saved);
+
+        data.students =
+          data.students || [];
+
+        data.colleges =
+          data.colleges || [];
+
+        data.industries =
+          data.industries || [];
+
+        data.collaborations =
+          data.collaborations || [];
+
+        data.placements =
+          data.placements || [];
+
+        data.training =
+          data.training || [];
+
+        data.students.forEach((student) => {
+          student.skills =
+            student.skills || [];
+
+          student.certificates =
+            student.certificates || [];
+
+          student.applications =
+            student.applications || [];
+
+          student.notifications =
+            student.notifications || [];
+        });
+
+        return data;
+      } catch (error) {
+        return JSON.parse(
+          JSON.stringify(SEED)
+        );
+      }
+    }
+
+    function saveDatabase() {
+      localStorage.setItem(
+        KEY,
+        JSON.stringify(database)
+      );
+
+      database = loadDatabase();
+    }
+
+    function createId(prefix) {
+      return `${prefix}-${Date.now()}-${Math.random()
+        .toString(36)
+        .slice(2, 7)}`;
+    }
+
+    function today() {
+      return new Date()
+        .toISOString()
+        .slice(0, 10);
+    }
+
+    function escapeHTML(value) {
+      return String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function showToast(message) {
+      const element =
+        document.createElement("div");
+
+      element.className = "toast";
+      element.textContent = message;
+
+      document
+        .getElementById("toast")
+        .appendChild(element);
+
+      setTimeout(() => {
+        element.remove();
+      }, 2500);
+    }
+
+    function getCurrentUser() {
+      if (!session) {
+        return null;
+      }
+
+      database = loadDatabase();
+
+      return database[
+        session.collection
+      ].find(
+        (item) =>
+          item.id === session.id
+      );
+    }
+
+    function getAllOpportunities() {
+      database = loadDatabase();
+
+      return database.industries.flatMap(
+        (industry) => [
+          ...industry.jobs.map((job) => ({
+            ...job,
+            company: industry.name,
+            industryId: industry.id,
+            type: "Job"
+          })),
+
+          ...industry.internships.map(
+            (internship) => ({
+              ...internship,
+              company: industry.name,
+              industryId: industry.id,
+              type: "Internship"
+            })
+          )
+        ]
+      );
+    }
+
+    function getStatusBadge(status) {
+      const positive = [
+        "Selected",
+        "Shortlisted",
+        "Placed",
+        "Active"
+      ].includes(status);
+
+      return `
+        <span class="tag ${
+          positive ? "success" : ""
+        }">
+          ${escapeHTML(status)}
+        </span>
+      `;
+    }
+
+    function statistic(label, value) {
+      return `
+        <div class="card">
+          <span class="muted">
+            ${escapeHTML(label)}
+          </span>
+
+          <h2>
+            ${escapeHTML(value)}
+          </h2>
+        </div>
+      `;
+    }
+
+    function getNavigation() {
+      if (currentRole === "student") {
+        return [
+          "Dashboard",
+          "My Profile",
+          "My Skills",
+          "Certificates",
+          "Skill Gap Analysis",
+          "Opportunities",
+          "Applications",
+          "Notifications",
+          "Settings"
+        ];
+      }
+
+      if (currentRole === "college") {
+        return [
+          "Dashboard",
+          "Students",
+          "Training Programs",
+          "Placements",
+          "Industry Collaboration"
+        ];
+      }
+
+      return [
+        "Dashboard",
+        "Post Job",
+        "Post Internship",
+        "My Opportunities",
+        "Skill Requirements",
+        "Candidates",
+        "Shortlisted",
+        "College Collaboration",
+        "Analytics"
+      ];
+    }    function showLanding() {
+      document.getElementById("app").innerHTML = `
+        <main class="landing">
+          <nav class="navbar">
+            <div class="logo">
+              SkillBridge
+            </div>
+
+            <button
+              class="btn light"
+              onclick="showLogin()"
+            >
+              Sign in
+            </button>
+          </nav>
+
+          <section class="hero">
+            <h1>
+              Build skills.
+              Find opportunity.
+              Grow together.
+            </h1>
+
+            <p>
+              SkillBridge connects students, colleges,
+              and industries in one platform.
+            </p>
+
+            <button
+              class="btn light"
+              onclick="showLogin()"
+            >
+              Open platform
+            </button>
+          </section>
+        </main>
+      `;
+    }
+
+    function showLogin() {
+      document.getElementById("app").innerHTML = `
+        <main class="login">
+          <section class="box">
+            <div class="logo">
+              SkillBridge
+            </div>
+
+            <h1>Sign in</h1>
+
+            <div class="tabs">
+              <button
+                class="${
+                  currentRole === "student"
+                    ? "active"
+                    : ""
+                }"
+                onclick="
+                  currentRole='student';
+                  showLogin()
+                "
+              >
+                Student
+              </button>
+
+              <button
+                class="${
+                  currentRole === "college"
+                    ? "active"
+                    : ""
+                }"
+                onclick="
+                  currentRole='college';
+                  showLogin()
+                "
+              >
+                College
+              </button>
+
+              <button
+                class="${
+                  currentRole === "industry"
+                    ? "active"
+                    : ""
+                }"
+                onclick="
+                  currentRole='industry';
+                  showLogin()
+                "
+              >
+                Industry
+              </button>
+            </div>
+
+            <form onsubmit="login(event)">
+              <label>Name or email</label>
+
+              <input
+                id="loginIdentity"
+                required
+                placeholder="Enter name or email"
+              >
+
+              <label>Password</label>
+
+              <input
+                id="loginPassword"
+                type="password"
+                required
+                placeholder="Enter password"
+              >
+
+              <button
+                class="btn primary"
+                type="submit"
+              >
+                Sign in
+              </button>
+
+              <button
+                class="btn outline"
+                type="button"
+                onclick="showRegister()"
+              >
+                Create account
+              </button>
+
+              <button
+                class="btn outline"
+                type="button"
+                onclick="showLanding()"
+              >
+                Back
+              </button>
+            </form>
+
+            <p class="muted">
+              Demo accounts:<br>
+              Aarav Sharma / student123<br>
+              ABC Institute of Technology / college123<br>
+              TechNova Solutions / industry123
+            </p>
+          </section>
+        </main>
+      `;
+    }
+
+    function showRegister() {
+      document.getElementById("app").innerHTML = `
+        <main class="login">
+          <section class="box">
+            <div class="logo">
+              SkillBridge
+            </div>
+
+            <h1>Create account</h1>
+
+            <div class="tabs">
+              <button
+                class="${
+                  currentRole === "student"
+                    ? "active"
+                    : ""
+                }"
+                onclick="
+                  currentRole='student';
+                  showRegister()
+                "
+              >
+                Student
+              </button>
+
+              <button
+                class="${
+                  currentRole === "college"
+                    ? "active"
+                    : ""
+                }"
+                onclick="
+                  currentRole='college';
+                  showRegister()
+                "
+              >
+                College
+              </button>
+
+              <button
+                class="${
+                  currentRole === "industry"
+                    ? "active"
+                    : ""
+                }"
+                onclick="
+                  currentRole='industry';
+                  showRegister()
+                "
+              >
+                Industry
+              </button>
+            </div>
+
+            <form onsubmit="register(event)">
+              <label>
+                ${
+                  currentRole === "student"
+                    ? "Student name"
+                    : currentRole === "college"
+                    ? "College name"
+                    : "Company name"
+                }
+              </label>
+
+              <input
+                id="registerName"
+                required
+              >
+
+              <label>Email</label>
+
+              <input
+                id="registerEmail"
+                type="email"
+                required
+              >
+
+              ${
+                currentRole === "student"
+                  ? `
+                    <label>Branch</label>
+                    <input
+                      id="registerBranch"
+                      required
+                    >
+
+                    <label>Academic year</label>
+                    <input
+                      id="registerYear"
+                      required
+                    >
+
+                    <label>College name</label>
+                    <input
+                      id="registerCollege"
+                      required
+                    >
+                  `
+                  : `
+                    <label>Location</label>
+                    <input
+                      id="registerLocation"
+                      required
+                    >
+                  `
+              }
+
+              <label>Password</label>
+
+              <input
+                id="registerPassword"
+                type="password"
+                minlength="6"
+                required
+              >
+
+              <label>Confirm password</label>
+
+              <input
+                id="registerConfirmPassword"
+                type="password"
+                minlength="6"
+                required
+              >
+
+              <button
+                class="btn primary"
+                type="submit"
+              >
+                Register
+              </button>
+
+              <button
+                class="btn outline"
+                type="button"
+                onclick="showLogin()"
+              >
+                Back to login
+              </button>
+            </form>
+          </section>
+        </main>
+      `;
+    }
+
+    function login(event) {
+      event.preventDefault();
+
+      const identity =
+        document.getElementById(
+          "loginIdentity"
+        ).value
+        .trim()
+        .toLowerCase();
+
+      const password =
+        document.getElementById(
+          "loginPassword"
+        ).value;
+
+      const collection =
+        currentRole === "student"
+          ? "students"
+          : currentRole === "college"
+          ? "colleges"
+          : "industries";
+
+      database = loadDatabase();
+
+      const user =
+        database[collection].find(
+          (record) => {
+            const name =
+              String(record.name || "")
+                .trim()
+                .toLowerCase();
+
+            const email =
+              String(record.email || "")
+                .trim()
+                .toLowerCase();
+
+            return (
+              (name === identity ||
+                email === identity) &&
+              String(record.password) ===
+                String(password)
+            );
+          }
+        );
+
+      if (!user) {
+        showToast(
+          "Account not found or password is incorrect."
+        );
+
+        return;
+      }
+
+      session = {
+        collection,
+        id: user.id
+      };
+
+      currentPage = "Dashboard";
+      renderApplication();
+    }
+
+    function register(event) {
+      event.preventDefault();
+
+      database = loadDatabase();
+
+      const name =
+        document.getElementById(
+          "registerName"
+        ).value
+        .trim();
+
+      const email =
+        document.getElementById(
+          "registerEmail"
+        ).value
+        .trim()
+        .toLowerCase();
+
+      const password =
+        document.getElementById(
+          "registerPassword"
+        ).value;
+
+      const confirmPassword =
+        document.getElementById(
+          "registerConfirmPassword"
+        ).value;
+
+      if (password !== confirmPassword) {
+        showToast(
+          "Passwords do not match."
+        );
+
+        return;
+      }
+
+      const collection =
+        currentRole === "student"
+          ? "students"
+          : currentRole === "college"
+          ? "colleges"
+          : "industries";
+
+      const duplicate =
+        database[collection].some(
+          (record) =>
+            record.name
+              .toLowerCase() ===
+              name.toLowerCase() ||
+            record.email
+              .toLowerCase() ===
+              email
+        );
+
+      if (duplicate) {
+        showToast(
+          "Name or email already exists."
+        );
+
+        return;
+      }
+
+      if (currentRole === "student") {
+        registerStudent(
+          name,
+          email,
+          password
+        );
+      }
+
+      if (currentRole === "college") {
+        registerCollege(
+          name,
+          email,
+          password
+        );
+      }
+
+      if (currentRole === "industry") {
+        registerIndustry(
+          name,
+          email,
+          password
+        );
+      }
+    }
+
+    function registerStudent(
+      name,
+      email,
+      password
+    ) {
+      const branch =
+        document.getElementById(
+          "registerBranch"
+        ).value
+        .trim();
+
+      const year =
+        document.getElementById(
+          "registerYear"
+        ).value
+        .trim();
+
+      const collegeName =
+        document.getElementById(
+          "registerCollege"
+        ).value
+        .trim();
+
+      let college =
+        database.colleges.find(
+          (item) =>
+            item.name
+              .toLowerCase() ===
+            collegeName.toLowerCase()
+        );
+
+      if (!college) {
+        college = {
+          id: createId("college"),
+          name: collegeName,
+          email:
+            `admin-${Date.now()}@skillbridge.local`,
+          password: "college123",
+          location: "Not specified"
+        };
+
+        database.colleges.push(college);
+      }
+
+      database.students.push({
+        id: createId("student"),
+        name,
+        email,
+        password,
+        collegeId: college.id,
+        branch,
+        year,
+        profile: 60,
+        skills: [],
+        certificates: [],
+        applications: [],
+        notifications: []
+      });
+
+      saveDatabase();
+
+      alert(
+        "Student account created. Log in using your email and password."
+      );
+
+      currentRole = "student";
+      showLogin();
+    }
+
+    function registerCollege(
+      name,
+      email,
+      password
+    ) {
+      const location =
+        document.getElementById(
+          "registerLocation"
+        ).value
+        .trim();
+
+      database.colleges.push({
+        id: createId("college"),
+        name,
+        email,
+        password,
+        location
+      });
+
+      saveDatabase();
+
+      alert(
+        "College account created."
+      );
+
+      currentRole = "college";
+      showLogin();
+    }
+
+    function registerIndustry(
+      name,
+      email,
+      password
+    ) {
+      const location =
+        document.getElementById(
+          "registerLocation"
+        ).value
+        .trim();
+
+      database.industries.push({
+        id: createId("industry"),
+        name,
+        email,
+        password,
+        location,
+        jobs: [],
+        internships: []
+      });
+
+      saveDatabase();
+
+      alert(
+        "Industry account created."
+      );
+
+      currentRole = "industry";
+      showLogin();
+    }    function renderApplication() {
+      const user = getCurrentUser();
+
+      document.getElementById("app").innerHTML = `
+        <div class="shell">
+          <aside class="side">
+            <div class="logo">
+              SkillBridge
+            </div>
+
+            <nav class="nav">
+              ${getNavigation()
+                .map(
+                  (item) => `
+                    <button
+                      class="${
+                        currentPage === item
+                          ? "active"
+                          : ""
+                      }"
+                      onclick="
+                        currentPage='${item}';
+                        renderApplication()
+                      "
+                    >
+                      ${item}
+                    </button>
+                  `
+                )
+                .join("")}
+
+              <button onclick="logout()">
+                Logout
+              </button>
+            </nav>
+          </aside>
+
+          <main class="main">
+            <header class="topbar">
+              <div>
+                <h1>
+                  ${escapeHTML(currentPage)}
+                </h1>
+
+                <span class="muted">
+                  ${escapeHTML(user.name)}
+                </span>
+              </div>
+
+              <span>🔔</span>
+            </header>
+
+            <div id="content"></div>
+          </main>
+        </div>
+      `;
+
+      renderCurrentPage();
+    }
+
+    function logout() {
+      session = null;
+      currentPage = "Dashboard";
+      showLanding();
+    }
+
+    function renderCurrentPage() {
+      if (currentRole === "student") {
+        renderStudentPage();
+      } else if (currentRole === "college") {
+        renderCollegePage();
+      } else {
+        renderIndustryPage();
+      }
+    }
+
+    function renderStudentPage() {
+      const student = getCurrentUser();
+      const content =
+        document.getElementById("content");
+
+      if (currentPage === "Dashboard") {
+        renderStudentDashboard(student);
+      } else if (
+        currentPage === "My Profile"
+      ) {
+        renderStudentProfile(student);
+      } else if (
+        currentPage === "My Skills"
+      ) {
+        renderStudentSkills(student);
+      } else if (
+        currentPage === "Certificates"
+      ) {
+        renderStudentCertificates(student);
+      } else if (
+        currentPage === "Skill Gap Analysis"
+      ) {
+        renderStudentSkillGap(student);
+      } else if (
+        currentPage === "Opportunities"
+      ) {
+        renderStudentOpportunities(student);
+      } else if (
+        currentPage === "Applications"
+      ) {
+        renderStudentApplications(student);
+      } else if (
+        currentPage === "Notifications"
+      ) {
+        renderStudentNotifications(student);
+      } else if (
+        currentPage === "Settings"
+      ) {
+        renderStudentSettings(student);
+      } else {
+        content.innerHTML = `
+          <section class="card">
+            <h2>
+              ${escapeHTML(currentPage)}
+            </h2>
+
+            <p>
+              This page is connected to
+              ${escapeHTML(student.name)}.
+            </p>
+          </section>
+        `;
+      }
+    }
+
+    function renderStudentDashboard(student) {
+      const content =
+        document.getElementById("content");
+
+      const score = student.skills.length
+        ? Math.round(
+            student.skills.reduce(
+              (sum, skill) =>
+                sum + skill.level,
+              0
+            ) / student.skills.length
+          )
+        : 0;
+
+      const shortlisted =
+        student.applications.filter(
+          (application) =>
+            application.status ===
+            "Shortlisted"
+        ).length;
+
+      content.innerHTML = `
+        <div class="cards">
+          ${statistic(
+            "Skill Score",
+            `${score}%`
+          )}
+
+          ${statistic(
+            "Profile Completion",
+            `${student.profile}%`
+          )}
+
+          ${statistic(
+            "Applications",
+            student.applications.length
+          )}
+
+          ${statistic(
+            "Shortlisted",
+            shortlisted
+          )}
+        </div>
+
+        <div class="grid">
+          <section class="card">
+            <h2>Skill performance</h2>
+
+            ${
+              student.skills.length
+                ? student.skills
+                    .map(
+                      (skill) => `
+                        <p>
+                          ${escapeHTML(
+                            skill.name
+                          )}
+                          —
+                          ${skill.level}%
+                        </p>
+
+                        <div class="progress">
+                          <span
+                            style="
+                              width:${skill.level}%
+                            "
+                          ></span>
+                        </div>
+                      `
+                    )
+                    .join("")
+                : `
+                  <p class="empty">
+                    No skills added yet.
+                  </p>
+                `
+            }
+          </section>
+
+          <section class="card">
+            <h2>Notifications</h2>
+
+            ${
+              student.notifications.length
+                ? student.notifications
+                    .slice(0, 5)
+                    .map(
+                      (notification) => `
+                        <p>
+                          <strong>
+                            ${escapeHTML(
+                              notification.title
+                            )}
+                          </strong>
+                          <br>
+
+                          ${escapeHTML(
+                            notification.message
+                          )}
+                        </p>
+                      `
+                    )
+                    .join("")
+                : `
+                  <p class="empty">
+                    No notifications available.
+                  </p>
+                `
+            }
+          </section>
+        </div>
+      `;
+    }
+
+    function renderStudentProfile(student) {
+      document.getElementById("content").innerHTML = `
+        <section class="card">
+          <h2>My Profile</h2>
+
+          <label>Name</label>
+
+          <input
+            id="studentProfileName"
+            value="${escapeHTML(
+              student.name
+            )}"
+          >
+
+          <label>Email</label>
+
+          <input
+            id="studentProfileEmail"
+            value="${escapeHTML(
+              student.email
+            )}"
+          >
+
+          <label>Branch</label>
+
+          <input
+            id="studentProfileBranch"
+            value="${escapeHTML(
+              student.branch
+            )}"
+          >
+
+          <label>Academic year</label>
+
+          <input
+            id="studentProfileYear"
+            value="${escapeHTML(
+              student.year
+            )}"
+          >
+
+          <button
+            class="btn primary"
+            onclick="saveStudentProfile()"
+          >
+            Save profile
+          </button>
+        </section>
+      `;
+    }
+
+    function saveStudentProfile() {
+      const student = getCurrentUser();
+
+      student.name =
+        document.getElementById(
+          "studentProfileName"
+        ).value.trim();
+
+      student.email =
+        document.getElementById(
+          "studentProfileEmail"
+        ).value.trim()
+        .toLowerCase();
+
+      student.branch =
+        document.getElementById(
+          "studentProfileBranch"
+        ).value.trim();
+
+      student.year =
+        document.getElementById(
+          "studentProfileYear"
+        ).value.trim();
+
+      student.profile = 100;
+
+      saveDatabase();
+      showToast("Profile saved.");
+      renderApplication();
+    }
+
+    function renderStudentSkills(student) {
+      document.getElementById("content").innerHTML = `
+        <section class="card">
+          <div class="toolbar">
+            <div>
+              <h2>My Skills</h2>
+
+              <p class="muted">
+                Add, edit, and update your skills.
+              </p>
+            </div>
+
+            <button
+              class="btn primary"
+              onclick="addStudentSkill()"
+            >
+              Add skill
+            </button>
+          </div>
+
+          ${
+            student.skills.length
+              ? student.skills
+                  .map(
+                    (skill, index) => `
+                      <div class="card">
+                        <strong>
+                          ${escapeHTML(
+                            skill.name
+                          )}
+                        </strong>
+
+                        —
+                        ${skill.level}%
+
+                        <div class="progress">
+                          <span
+                            style="
+                              width:${skill.level}%
+                            "
+                          ></span>
+                        </div>
+
+                        <button
+                          class="btn outline"
+                          onclick="
+                            editStudentSkill(
+                              ${index}
+                            )
+                          "
+                        >
+                          Edit
+                        </button>
+
+                        <button
+                          class="btn danger"
+                          onclick="
+                            deleteStudentSkill(
+                              ${index}
+                            )
+                          "
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    `
+                  )
+                  .join("")
+              : `
+                <p class="empty">
+                  No skills added.
+                </p>
+              `
+          }
+        </section>
+      `;
+    }
+
+    function addStudentSkill() {
+      const name = prompt(
+        "Enter skill name:"
+      );
+
+      if (!name) {
+        return;
+      }
+
+      const level = Number(
+        prompt(
+          "Enter skill percentage:",
+          "50"
+        )
+      );
+
+      if (Number.isNaN(level)) {
+        showToast(
+          "Enter a valid percentage."
+        );
+
+        return;
+      }
+
+      const student = getCurrentUser();
+
+      student.skills.push({
+        name: name.trim(),
+        level: Math.max(
+          0,
+          Math.min(100, level)
+        )
+      });
+
+      saveDatabase();
+      showToast("Skill added.");
+      renderApplication();
+    }
+
+    function editStudentSkill(index) {
+      const student = getCurrentUser();
+      const oldSkill =
+        student.skills[index];
+
+      const name = prompt(
+        "Update skill name:",
+        oldSkill.name
+      );
+
+      const level = Number(
+        prompt(
+          "Update percentage:",
+          oldSkill.level
+        )
+      );
+
+      if (!name || Number.isNaN(level)) {
+        return;
+      }
+
+      student.skills[index] = {
+        name: name.trim(),
+        level: Math.max(
+          0,
+          Math.min(100, level)
+        )
+      };
+
+      saveDatabase();
+      showToast("Skill updated.");
+      renderApplication();
+    }
+
+    function deleteStudentSkill(index) {
+      if (!confirm("Delete this skill?")) {
+        return;
+      }
+
+      const student = getCurrentUser();
+
+      student.skills.splice(index, 1);
+
+      saveDatabase();
+      showToast("Skill deleted.");
+      renderApplication();
+    }
+
+    function renderStudentCertificates(
+      student
+    ) {
+      document.getElementById("content").innerHTML = `
+        <section class="card">
+          <div class="toolbar">
+            <div>
+              <h2>Certificates</h2>
+
+              <p class="muted">
+                Add and manage certificates.
+              </p>
+            </div>
+
+            <button
+              class="btn primary"
+              onclick="
+                addStudentCertificate()
+              "
+            >
+              Add certificate
+            </button>
+          </div>
+
+          ${
+            student.certificates.length
+              ? student.certificates
+                  .map(
+                    (certificate, index) => `
+                      <div class="card">
+                        <h3>
+                          ${escapeHTML(
+                            certificate.name
+                          )}
+                        </h3>
+
+                        <p>
+                          ${escapeHTML(
+                            certificate.organization
+                          )}
+                        </p>
+
+                        <p class="muted">
+                          ${escapeHTML(
+                            certificate.date
+                          )}
+                        </p>
+
+                        <button
+                          class="btn danger"
+                          onclick="
+                            deleteStudentCertificate(
+                              ${index}
+                            )
+                          "
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    `
+                  )
+                  .join("")
+              : `
+                <p class="empty">
+                  No certificates added.
+                </p>
+              `
+          }
+        </section>
+      `;
+    }
+
+    function addStudentCertificate() {
+      const name = prompt(
+        "Certificate name:"
+      );
+
+      if (!name) {
+        return;
+      }
+
+      const organization = prompt(
+        "Issuing organization:"
+      );
+
+      if (!organization) {
+        return;
+      }
+
+      const student = getCurrentUser();
+
+      student.certificates.push({
+        name: name.trim(),
+        organization: organization.trim(),
+        date: today()
+      });
+
+      saveDatabase();
+      showToast("Certificate added.");
+      renderApplication();
+    }
+
+    function deleteStudentCertificate(index) {
+      const student = getCurrentUser();
+
+      if (!confirm("Delete this certificate?")) {
+        return;
+      }
+
+      student.certificates.splice(
+        index,
+        1
+      );
+
+      saveDatabase();
+      showToast("Certificate deleted.");
+      renderApplication();
+    }
+
+    function renderStudentSkillGap(
+      student
+    ) {
+      const requiredSkills = [
+        "JavaScript",
+        "HTML/CSS",
+        "Git",
+        "Communication",
+        "Responsive Design"
+      ];
+
+      const existingSkills =
+        student.skills.map(
+          (skill) =>
+            skill.name.toLowerCase()
+        );
+
+      const availableSkills =
+        requiredSkills.filter(
+          (skill) =>
+            existingSkills.includes(
+              skill.toLowerCase()
+            )
+        );
+
+      const missingSkills =
+        requiredSkills.filter(
+          (skill) =>
+            !existingSkills.includes(
+              skill.toLowerCase()
+            )
+        );
+
+      document.getElementById("content").innerHTML = `
+        <section class="card">
+          <h2>Skill Gap Analysis</h2>
+
+          <div class="grid">
+            <div class="card">
+              <h3>Available skills</h3>
+
+              ${
+                availableSkills.length
+                  ? availableSkills
+                      .map(
+                        (skill) => `
+                          <p>
+                            <span class="tag success">
+                              ${escapeHTML(
+                                skill
+                              )}
+                            </span>
+                          </p>
+                        `
+                      )
+                      .join("")
+                  : `
+                    <p class="empty">
+                      No matching skills.
+                    </p>
+                  `
+              }
+            </div>
+
+            <div class="card">
+              <h3>Recommended skills</h3>
+
+              ${
+                missingSkills.length
+                  ? missingSkills
+                      .map(
+                        (skill) => `
+                          <p>
+                            <span class="tag warning">
+                              ${escapeHTML(
+                                skill
+                              )}
+                            </span>
+                          </p>
+                        `
+                      )
+                      .join("")
+                  : `
+                    <p class="empty">
+                      No skill gap found.
+                    </p>
+                  `
+              }
+            </div>
+          </div>
+        </section>
+      `;
+    }    function renderStudentOpportunities(
+      student
+    ) {
+      const opportunities =
+        getAllOpportunities();
+
+      document.getElementById("content").innerHTML = `
+        <section class="card">
+          <h2>Opportunities</h2>
+
+          ${
+            opportunities.length
+              ? opportunities
+                  .map((opportunity) => {
+                    const applied =
+                      student.applications.some(
+                        (application) =>
+                          application.opportunityId ===
+                          opportunity.id
+                      );
+
+                    return `
+                      <div class="card">
+                        <h2>
+                          ${escapeHTML(
+                            opportunity.title
+                          )}
+                        </h2>
+
+                        <p>
+                          ${escapeHTML(
+                            opportunity.company
+                          )}
+                          ·
+                          ${escapeHTML(
+                            opportunity.location
+                          )}
+                          ·
+                          ${escapeHTML(
+                            opportunity.mode
+                          )}
+                        </p>
+
+                        <p>
+                          ${opportunity.skills
+                            .map(
+                              (skill) =>
+                                `<span class="tag">
+                                  ${escapeHTML(
+                                    skill
+                                  )}
+                                </span>`
+                            )
+                            .join("")}
+                        </p>
+
+                        <button
+                          class="btn ${
+                            applied
+                              ? ""
+                              : "primary"
+                          }"
+                          ${
+                            applied
+                              ? "disabled"
+                              : `
+                                onclick="
+                                  applyToOpportunity(
+                                    '${opportunity.id}'
+                                  )
+                                "
+                              `
+                          }
+                        >
+                          ${
+                            applied
+                              ? "Already applied"
+                              : "Apply"
+                          }
+                        </button>
+                      </div>
+                    `;
+                  })
+                  .join("")
+              : `
+                <p class="empty">
+                  No opportunities available.
+                </p>
+              `
+          }
+        </section>
+      `;
+    }
+
+    function applyToOpportunity(
+      opportunityId
+    ) {
+      const student = getCurrentUser();
+
+      const alreadyApplied =
+        student.applications.some(
+          (application) =>
+            application.opportunityId ===
+            opportunityId
+        );
+
+      if (alreadyApplied) {
+        showToast("Already applied.");
+        return;
+      }
+
+      student.applications.push({
+        id: createId("application"),
+        opportunityId,
+        status: "Applied",
+        date: today()
+      });
+
+      student.notifications.unshift({
+        title: "Application submitted",
+        message:
+          "Your application was submitted successfully.",
+        date: today(),
+        unread: true
+      });
+
+      saveDatabase();
+      showToast("Application submitted.");
+      renderApplication();
+    }
+
+    function renderStudentApplications(
+      student
+    ) {
+      const opportunities =
+        getAllOpportunities();
+
+      document.getElementById("content").innerHTML = `
+        <section class="card">
+          <h2>My Applications</h2>
+
+          ${
+            student.applications.length
+              ? `
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Opportunity</th>
+                        <th>Company</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      ${student.applications
+                        .map((application) => {
+                          const opportunity =
+                            opportunities.find(
+                              (item) =>
+                                item.id ===
+                                application.opportunityId
+                            );
+
+                          return `
+                            <tr>
+                              <td>
+                                ${escapeHTML(
+                                  opportunity?.title ||
+                                    "Unknown"
+                                )}
+                              </td>
+
+                              <td>
+                                ${escapeHTML(
+                                  opportunity?.company ||
+                                    "Unknown"
+                                )}
+                              </td>
+
+                              <td>
+                                ${getStatusBadge(
+                                  application.status
+                                )}
+                              </td>
+
+                              <td>
+                                ${escapeHTML(
+                                  application.date
+                                )}
+                              </td>
+                            </tr>
+                          `;
+                        })
+                        .join("")}
+                    </tbody>
+                  </table>
+                </div>
+              `
+              : `
+                <p class="empty">
+                  No applications found.
+                </p>
+              `
+          }
+        </section>
+      `;
+    }
+
+    function renderStudentNotifications(
+      student
+    ) {
+      document.getElementById("content").innerHTML = `
+        <section class="card">
+          <div class="toolbar">
+            <h2>Notifications</h2>
+
+            <button
+              class="btn primary"
+              onclick="
+                markNotificationsRead()
+              "
+            >
+              Mark read
+            </button>
+          </div>
+
+          ${
+            student.notifications.length
+              ? student.notifications
+                  .map(
+                    (notification) => `
+                      <div class="card">
+                        <h3>
+                          ${escapeHTML(
+                            notification.title
+                          )}
+                        </h3>
+
+                        <p>
+                          ${escapeHTML(
+                            notification.message
+                          )}
+                        </p>
+
+                        <small class="muted">
+                          ${escapeHTML(
+                            notification.date
+                          )}
+                        </small>
+                      </div>
+                    `
+                  )
+                  .join("")
+              : `
+                <p class="empty">
+                  No notifications.
+                </p>
+              `
+          }
+        </section>
+      `;
+    }
+
+    function markNotificationsRead() {
+      const student = getCurrentUser();
+
+      student.notifications.forEach(
+        (notification) => {
+          notification.unread = false;
+        }
+      );
+
+      saveDatabase();
+      showToast("Notifications marked as read.");
+      renderApplication();
+    }
+
+    function renderStudentSettings(
+      student
+    ) {
+      document.getElementById("content").innerHTML = `
+        <section class="card">
+          <h2>Settings</h2>
+
+          <label>New password</label>
+
+          <input
+            id="studentNewPassword"
+            type="password"
+            placeholder="Enter new password"
+          >
+
+          <button
+            class="btn primary"
+            onclick="
+              saveStudentSettings()
+            "
+          >
+            Save settings
+          </button>
+        </section>
+      `;
+    }
+
+    function saveStudentSettings() {
+      const student = getCurrentUser();
+
+      const password =
+        document.getElementById(
+          "studentNewPassword"
+        ).value;
+
+      if (!password) {
+        showToast(
+          "Enter a new password."
+        );
+
+        return;
+      }
+
+      student.password = password;
+
+      saveDatabase();
+      showToast("Password updated.");
+      renderApplication();
+    }
+
+    function renderCollegePage() {
+      const college = getCurrentUser();
+
+      const students =
+        database.students.filter(
+          (student) =>
+            student.collegeId === college.id
+        );
+
+      if (currentPage === "Dashboard") {
+        renderCollegeDashboard(
+          college,
+          students
+        );
+      } else if (
+        currentPage === "Students"
+      ) {
+        renderCollegeStudents(students);
+      } else if (
+        currentPage === "Training Programs"
+      ) {
+        renderCollegeTrainingPrograms(
+          college
+        );
+      } else if (
+        currentPage === "Placements"
+      ) {
+        renderCollegePlacements(college);
+      } else if (
+        currentPage === "Industry Collaboration"
+      ) {
+        renderCollegeCollaborations(college);
+      }
+    }
+
+    function renderCollegeDashboard(
+      college,
+      students
+    ) {
+      const collaborations =
+        database.collaborations.filter(
+          (item) =>
+            item.collegeId === college.id
+        );
+
+      const placements =
+        database.placements.filter(
+          (item) =>
+            item.collegeId === college.id
+        );
+
+      document.getElementById("content").innerHTML = `
+        <div class="cards">
+          ${statistic(
+            "Students",
+            students.length
+          )}
+
+          ${statistic(
+            "Collaborations",
+            collaborations.length
+          )}
+
+          ${statistic(
+            "Placements",
+            placements.length
+          )}
+
+          ${statistic(
+            "Opportunities",
+            getAllOpportunities().length
+          )}
+        </div>
+
+        <section class="card">
+          <h2>
+            ${escapeHTML(college.name)}
+          </h2>
+
+          <p>
+            This college can manage only its own students,
+            collaborations, placements, and training.
+          </p>
+        </section>
+      `;
+    }
+
+    function renderCollegeStudents(
+      students
+    ) {
+      document.getElementById("content").innerHTML = `
+        <section class="card">
+          <h2>Students</h2>
+
+          ${
+            students.length
+              ? students
+                  .map(
+                    (student) => `
+                      <div class="card">
+                        <h3>
+                          ${escapeHTML(
+                            student.name
+                          )}
+                        </h3>
+
+                        <p>
+                          Email:
+                          ${escapeHTML(
+                            student.email
+                          )}
+                        </p>
+
+                        <p>
+                          Branch:
+                          ${escapeHTML(
+                            student.branch
+                          )}
+                        </p>
+
+                        <p>
+                          Year:
+                          ${escapeHTML(
+                            student.year
+                          )}
+                        </p>
+
+                        <h4>Skills</h4>
+
+                        ${
+                          student.skills.length
+                            ? student.skills
+                                .map(
+                                  (skill) =>
+                                    `<span class="tag">
+                                      ${escapeHTML(
+                                        skill.name
+                                      )}
+                                      —
+                                      ${skill.level}%
+                                    </span>`
+                                )
+                                .join("")
+                            : `
+                              <p class="muted">
+                                No skills added.
+                              </p>
+                            `
+                        }
+
+                        <h4>Applications</h4>
+
+                        <p>
+                          ${
+                            student.applications
+                              .length
+                          }
+                          application(s)
+                        </p>
+                      </div>
+                    `
+                  )
+                  .join("")
+              : `
+                <p class="empty">
+                  No students belong to this college.
+                </p>
+              `
+          }
+        </section>
+      `;
+    }
+
+    function renderCollegeTrainingPrograms(
+      college
+    ) {
+      const programs =
+        database.training.filter(
+          (program) =>
+            program.collegeId === college.id
+        );
+
+      document.getElementById("content").innerHTML = `
+        <section class="card">
+          <div class="toolbar">
+            <h2>Training Programs</h2>
+
+            <button
+              class="btn primary"
+              onclick="
+                addCollegeTraining()
+              "
+            >
+              Add training
+            </button>
+          </div>
+
+          ${
+            programs.length
+              ? programs
+                  .map(
+                    (program) => `
+                      <div class="card">
+                        <h3>
+                          ${escapeHTML(
+                            program.title
+                          )}
+                        </h3>
+
+                        <p>
+                          Skill:
+                          ${escapeHTML(
+                            program.skill
+                          )}
+                        </p>
+
+                        <p>
+                          Trainer:
+                          ${escapeHTML(
+                            program.trainer
+                          )}
+                        </p>
+
+                        <p>
+                          Duration:
+                          ${escapeHTML(
+                            program.duration
+                          )}
+                        </p>
+                      </div>
+                    `
+                  )
+                  .join("")
+              : `
+                <p class="empty">
+                  No training programs found.
+                </p>
+              `
+          }
+        </section>
+      `;
+    }
+
+    function addCollegeTraining() {
+      const title = prompt(
+        "Training title:"
+      );
+
+      if (!title) {
+        return;
+      }
+
+      const skill =
+        prompt("Skill/domain:") ||
+        "General";
+
+      const trainer =
+        prompt("Trainer/company:") ||
+        "Internal trainer";
+
+      const duration =
+        prompt("Duration:") ||
+        "20 hours";
+
+      const college = getCurrentUser();
+
+      database.training.push({
+        id: createId("training"),
+        collegeId: college.id,
+        title,
+        skill,
+        trainer,
+        duration,
+        date: today()
+      });
+
+      saveDatabase();
+      showToast(
+        "Training program added."
+      );
+
+      renderApplication();
+    }    function renderCollegeCollaborations(
+      college
+    ) {
+      const collaborations =
+        database.collaborations.filter(
+          (collaboration) =>
+            collaboration.collegeId ===
+            college.id
+        );
+
+      document.getElementById("content").innerHTML = `
+        <section class="card">
+          <div class="toolbar">
+            <div>
+              <h2>Industry Collaboration</h2>
+
+              <p class="muted">
+                Manage companies collaborating with
+                ${escapeHTML(college.name)}.
+              </p>
+            </div>
+
+            <button
+              class="btn primary"
+              onclick="
+                addCollegeCollaboration()
+              "
+            >
+              Add collaboration
+            </button>
+          </div>
+
+          ${
+            collaborations.length
+              ? `
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Company</th>
+                        <th>Type</th>
+                        <th>Contact</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      ${collaborations
+                        .map((item) => {
+                          const industry =
+                            database.industries.find(
+                              (company) =>
+                                company.id ===
+                                item.industryId
+                            );
+
+                          return `
+                            <tr>
+                              <td>
+                                ${escapeHTML(
+                                  industry?.name ||
+                                    "Unknown"
+                                )}
+                              </td>
+
+                              <td>
+                                ${escapeHTML(
+                                  item.type
+                                )}
+                              </td>
+
+                              <td>
+                                ${escapeHTML(
+                                  item.contact
+                                )}
+                              </td>
+
+                              <td>
+                                ${getStatusBadge(
+                                  item.status
+                                )}
+                              </td>
+
+                              <td>
+                                <button
+                                  class="btn danger"
+                                  onclick="
+                                    deleteCollegeCollaboration(
+                                      '${item.id}'
+                                    )
+                                  "
+                                >
+                                  Delete
+                                </button>
+                              </td>
+                            </tr>
+                          `;
+                        })
+                        .join("")}
+                    </tbody>
+                  </table>
+                </div>
+              `
+              : `
+                <p class="empty">
+                  No collaborations added.
+                </p>
+              `
+          }
+        </section>
+      `;
+    }
+
+    function addCollegeCollaboration() {
+      const companyName = prompt(
+        "Enter existing industry name:"
+      );
+
+      if (!companyName) {
+        return;
+      }
+
+      const type = prompt(
+        "Collaboration type:",
+        "Placement Partnership"
+      );
+
+      const contact = prompt(
+        "Contact email:"
+      );
+
+      const industry =
+        database.industries.find(
+          (company) =>
+            company.name
+              .toLowerCase() ===
+            companyName
+              .trim()
+              .toLowerCase()
+        );
+
+      if (!industry || !type || !contact) {
+        showToast(
+          "Enter a valid industry and complete all fields."
+        );
+
+        return;
+      }
+
+      const college = getCurrentUser();
+
+      database.collaborations.push({
+        id: createId("collaboration"),
+        collegeId: college.id,
+        industryId: industry.id,
+        type,
+        contact,
+        since: new Date().getFullYear(),
+        status: "Active"
+      });
+
+      saveDatabase();
+      showToast(
+        "Industry collaboration added."
+      );
+
+      renderApplication();
+    }
+
+    function deleteCollegeCollaboration(
+      collaborationId
+    ) {
+      if (!confirm("Delete this collaboration?")) {
+        return;
+      }
+
+      database.collaborations =
+        database.collaborations.filter(
+          (item) =>
+            item.id !== collaborationId
+        );
+
+      saveDatabase();
+      showToast(
+        "Collaboration deleted."
+      );
+
+      renderApplication();
+    }
+
+    function renderCollegePlacements(
+      college
+    ) {
+      const placements =
+        database.placements.filter(
+          (placement) =>
+            placement.collegeId === college.id
+        );
+
+      document.getElementById("content").innerHTML = `
+        <section class="card">
+          <div class="toolbar">
+            <div>
+              <h2>Placements</h2>
+
+              <p class="muted">
+                Manage placement records for
+                ${escapeHTML(college.name)}.
+              </p>
+            </div>
+
+            <button
+              class="btn primary"
+              onclick="
+                addCollegePlacement()
+              "
+            >
+              Add placement
+            </button>
+          </div>
+
+          ${
+            placements.length
+              ? `
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Student</th>
+                        <th>Company</th>
+                        <th>Opportunity</th>
+                        <th>Package</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      ${placements
+                        .map((placement) => {
+                          const student =
+                            database.students.find(
+                              (item) =>
+                                item.id ===
+                                placement.studentId
+                            );
+
+                          const industry =
+                            database.industries.find(
+                              (item) =>
+                                item.id ===
+                                placement.industryId
+                            );
+
+                          const opportunity =
+                            getAllOpportunities().find(
+                              (item) =>
+                                item.id ===
+                                placement.opportunityId
+                            );
+
+                          return `
+                            <tr>
+                              <td>
+                                ${escapeHTML(
+                                  student?.name ||
+                                    "Unknown"
+                                )}
+                              </td>
+
+                              <td>
+                                ${escapeHTML(
+                                  industry?.name ||
+                                    "Unknown"
+                                )}
+                              </td>
+
+                              <td>
+                                ${escapeHTML(
+                                  opportunity?.title ||
+                                    "Unknown"
+                                )}
+                              </td>
+
+                              <td>
+                                ${escapeHTML(
+                                  placement.package
+                                )}
+                              </td>
+
+                              <td>
+                                ${getStatusBadge(
+                                  placement.status
+                                )}
+                              </td>
+
+                              <td>
+                                <button
+                                  class="btn danger"
+                                  onclick="
+                                    deleteCollegePlacement(
+                                      '${placement.id}'
+                                    )
+                                  "
+                                >
+                                  Delete
+                                </button>
+                              </td>
+                            </tr>
+                          `;
+                        })
+                        .join("")}
+                    </tbody>
+                  </table>
+                </div>
+              `
+              : `
+                <p class="empty">
+                  No placement records found.
+                </p>
+              `
+          }
+        </section>
+      `;
+    }
+
+    function addCollegePlacement() {
+      const college = getCurrentUser();
+
+      const students =
+        database.students.filter(
+          (student) =>
+            student.collegeId === college.id
+        );
+
+      const companies =
+        database.industries;
+
+      const jobs =
+        getAllOpportunities().filter(
+          (opportunity) =>
+            opportunity.type === "Job"
+        );
+
+      document.getElementById("content").innerHTML = `
+        <section class="card">
+          <div class="toolbar">
+            <h2>Add Placement</h2>
+
+            <button
+              class="btn outline"
+              onclick="
+                renderApplication()
+              "
+            >
+              Back
+            </button>
+          </div>
+
+          <label>Student</label>
+
+          <select id="placementStudent">
+            <option value="">
+              Select student
+            </option>
+
+            ${students
+              .map(
+                (student) => `
+                  <option value="${student.id}">
+                    ${escapeHTML(
+                      student.name
+                    )}
+                  </option>
+                `
+              )
+              .join("")}
+          </select>
+
+          <label>Company</label>
+
+          <select id="placementCompany">
+            <option value="">
+              Select company
+            </option>
+
+            ${companies
+              .map(
+                (company) => `
+                  <option value="${company.id}">
+                    ${escapeHTML(
+                      company.name
+                    )}
+                  </option>
+                `
+              )
+              .join("")}
+          </select>
+
+          <label>Opportunity</label>
+
+          <select id="placementOpportunity">
+            <option value="">
+              Select opportunity
+            </option>
+
+            ${jobs
+              .map(
+                (job) => `
+                  <option value="${job.id}">
+                    ${escapeHTML(
+                      job.title
+                    )}
+                  </option>
+                `
+              )
+              .join("")}
+          </select>
+
+          <label>Package / LPA</label>
+
+          <input
+            id="placementPackage"
+            placeholder="Example: 8 LPA"
+          >
+
+          <label>Status</label>
+
+          <select id="placementStatus">
+            <option>Placed</option>
+            <option>Selected</option>
+          </select>
+
+          <button
+            class="btn primary"
+            onclick="
+              saveCollegePlacement()
+            "
+          >
+            Save placement
+          </button>
+        </section>
+      `;
+    }
+
+    function saveCollegePlacement() {
+      const college = getCurrentUser();
+
+      const studentId =
+        document.getElementById(
+          "placementStudent"
+        ).value;
+
+      const industryId =
+        document.getElementById(
+          "placementCompany"
+        ).value;
+
+      const opportunityId =
+        document.getElementById(
+          "placementOpportunity"
+        ).value;
+
+      const packageValue =
+        document.getElementById(
+          "placementPackage"
+        ).value.trim();
+
+      const placementStatus =
+        document.getElementById(
+          "placementStatus"
+        ).value;
+
+      if (
+        !studentId ||
+        !industryId ||
+        !opportunityId ||
+        !packageValue
+      ) {
+        showToast(
+          "Complete all placement fields."
+        );
+
+        return;
+      }
+
+      database.placements.push({
+        id: createId("placement"),
+        collegeId: college.id,
+        studentId,
+        industryId,
+        opportunityId,
+        package: packageValue,
+        date: today(),
+        status: placementStatus
+      });
+
+      saveDatabase();
+      showToast(
+        "Placement record added."
+      );
+
+      renderApplication();
+    }
+
+    function deleteCollegePlacement(
+      placementId
+    ) {
+      if (
+        !confirm(
+          "Delete this placement record?"
+        )
+      ) {
+        return;
+      }
+
+      database.placements =
+        database.placements.filter(
+          (placement) =>
+            placement.id !== placementId
+        );
+
+      saveDatabase();
+      showToast("Placement deleted.");
+      renderApplication();
+    }
+
+    function renderIndustryPage() {
+      const industry = getCurrentUser();
+
+      const opportunities = [
+        ...industry.jobs.map((job) => ({
+          ...job,
+          type: "Job"
+        })),
+
+        ...industry.internships.map(
+          (internship) => ({
+            ...internship,
+            type: "Internship"
+          })
+        )
+      ];
+
+      const opportunityIds =
+        opportunities.map(
+          (opportunity) =>
+            opportunity.id
+        );
+
+      const applications =
+        database.students.flatMap(
+          (student) =>
+            student.applications
+              .filter((application) =>
+                opportunityIds.includes(
+                  application.opportunityId
+                )
+              )
+              .map((application) => ({
+                ...application,
+                student
+              }))
+        );
+
+      if (currentPage === "Dashboard") {
+        renderIndustryDashboard(
+          industry,
+          opportunities,
+          applications
+        );
+      } else if (
+        currentPage === "Post Job"
+      ) {
+        renderIndustryPostForm(true);
+      } else if (
+        currentPage === "Post Internship"
+      ) {
+        renderIndustryPostForm(false);
+      } else if (
+        currentPage === "My Opportunities"
+      ) {
+        renderIndustryOpportunities(
+          opportunities,
+          applications
+        );
+      } else if (
+        currentPage === "Skill Requirements"
+      ) {
+        renderIndustrySkillRequirements(
+          opportunities
+        );
+      } else if (
+        currentPage === "Candidates"
+      ) {
+        renderIndustryCandidates(
+          applications,
+          opportunities,
+          false
+        );
+      } else if (
+        currentPage === "Shortlisted"
+      ) {
+        renderIndustryCandidates(
+          applications,
+          opportunities,
+          true
+        );
+      } else if (
+        currentPage === "College Collaboration"
+      ) {
+        renderIndustryCollegeCollaborations(
+          industry
+        );
+      } else if (
+        currentPage === "Analytics"
+      ) {
+        renderIndustryAnalytics(
+          industry,
+          opportunities,
+          applications
+        );
+      }
+    }
+
+    function renderIndustryDashboard(
+      industry,
+      opportunities,
+      applications
+    ) {
+      document.getElementById("content").innerHTML = `
+        <div class="cards">
+          ${statistic(
+            "Active Jobs",
+            industry.jobs.length
+          )}
+
+          ${statistic(
+            "Active Internships",
+            industry.internships.length
+          )}
+
+          ${statistic(
+            "Applications",
+            applications.length
+          )}
+
+          ${statistic(
+            "Shortlisted",
+            applications.filter(
+              (application) =>
+                application.status ===
+                "Shortlisted"
+            ).length
+          )}
+        </div>
+
+        <section class="card">
+          <h2>
+            ${escapeHTML(industry.name)}
+          </h2>
+
+          <p>
+            Manage opportunities and candidates
+            belonging to this company.
+          </p>
+
+          ${
+            applications.length
+              ? applications
+                  .slice(0, 5)
+                  .map((application) => {
+                    const opportunity =
+                      opportunities.find(
+                        (item) =>
+                          item.id ===
+                          application.opportunityId
+                      );
+
+                    return `
+                      <p>
+                        <strong>
+                          ${escapeHTML(
+                            application.student.name
+                          )}
+                        </strong>
+
+                        applied for
+
+                        ${escapeHTML(
+                          opportunity?.title ||
+                            "Unknown"
+                        )}
+
+                        ${getStatusBadge(
+                          application.status
+                        )}
+                      </p>
+                    `;
+                  })
+                  .join("")
+              : `
+                <p class="empty">
+                  No applications received.
+                </p>
+              `
+          }
+        </section>
+      `;
+    }
+
+    function renderIndustryPostForm(isJob) {
+      document.getElementById("content").innerHTML = `
+        <section class="card">
+          <h2>
+            Post ${isJob ? "Job" : "Internship"}
+          </h2>
+
+          <label>Title</label>
+
+          <input
+            id="industryTitle"
+            placeholder="Opportunity title"
+          >
+
+          <label>Location</label>
+
+          <input
+            id="industryLocation"
+            placeholder="Bengaluru"
+          >
+
+          <label>Work mode</label>
+
+          <select id="industryMode">
+            <option>Hybrid</option>
+            <option>Remote</option>
+            <option>On-site</option>
+          </select>
+
+          <label>
+            ${isJob ? "Salary" : "Stipend"}
+          </label>
+
+          <input
+            id="industryPayment"
+            placeholder="Example: 8 LPA"
+          >
+
+          <label>Required skills</label>
+
+          <input
+            id="industrySkills"
+            placeholder="JavaScript, SQL, Git"
+          >
+
+          <button
+            class="btn primary"
+            onclick="
+              saveIndustryOpportunity(
+                ${isJob}
+              )
+            "
+          >
+            Publish
+          </button>
+        </section>
+      `;
+    }
+
+    function saveIndustryOpportunity(
+      isJob
+    ) {
+      const industry = getCurrentUser();
+
+      const title =
+        document.getElementById(
+          "industryTitle"
+        ).value.trim();
+
+      const location =
+        document.getElementById(
+          "industryLocation"
+        ).value.trim();
+
+      const mode =
+        document.getElementById(
+          "industryMode"
+        ).value;
+
+      const payment =
+        document.getElementById(
+          "industryPayment"
+        ).value.trim();
+
+      const skills =
+        document.getElementById(
+          "industrySkills"
+        ).value
+        .split(",")
+        .map((skill) => skill.trim())
+        .filter(Boolean);
+
+      if (
+        !title ||
+        !location ||
+        !payment ||
+        !skills.length
+      ) {
+        showToast(
+          "Complete all opportunity fields."
+        );
+
+        return;
+      }
+
+      const opportunity = {
+        id: createId(
+          isJob
+            ? "job"
+            : "internship"
+        ),
+        title,
+        location,
+        mode,
+        skills
+      };
+
+      if (isJob) {
+        opportunity.salary = payment;
+        industry.jobs.push(
+          opportunity
+        );
+      } else {
+        opportunity.stipend = payment;
+        industry.internships.push(
+          opportunity
+        );
+      }
+
+      saveDatabase();
+      showToast(
+        "Opportunity published."
+      );
+
+      currentPage = "My Opportunities";
+      renderApplication();
+    }    function renderIndustryOpportunities(
+      opportunities,
+      applications
+    ) {
+      document.getElementById("content").innerHTML = `
+        <section class="card">
+          <h2>My Opportunities</h2>
+
+          ${
+            opportunities.length
+              ? opportunities
+                  .map((opportunity) => {
+                    const applicants =
+                      applications.filter(
+                        (application) =>
+                          application.opportunityId ===
+                          opportunity.id
+                      );
+
+                    return `
+                      <div class="card">
+                        <div class="toolbar">
+                          <div>
+                            <h2>
+                              ${escapeHTML(
+                                opportunity.title
+                              )}
+                            </h2>
+
+                            <p class="muted">
+                              ${escapeHTML(
+                                opportunity.type
+                              )}
+                              ·
+                              ${escapeHTML(
+                                opportunity.location
+                              )}
+                              ·
+                              ${escapeHTML(
+                                opportunity.mode
+                              )}
+                            </p>
+                          </div>
+
+                          <span class="tag">
+                            ${escapeHTML(
+                              opportunity.type
+                            )}
+                          </span>
+                        </div>
+
+                        <p>
+                          Required skills:
+                        </p>
+
+                        <p>
+                          ${opportunity.skills
+                            .map(
+                              (skill) =>
+                                `<span class="tag">
+                                  ${escapeHTML(
+                                    skill
+                                  )}
+                                </span>`
+                            )
+                            .join("")}
+                        </p>
+
+                        <h3>
+                          Applicants:
+                          ${applicants.length}
+                        </h3>
+
+                        ${
+                          applicants.length
+                            ? `
+                              <div class="table-wrap">
+                                <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th>Student</th>
+                                      <th>Branch</th>
+                                      <th>Status</th>
+                                      <th>Action</th>
+                                    </tr>
+                                  </thead>
+
+                                  <tbody>
+                                    ${applicants
+                                      .map(
+                                        (application) => `
+                                          <tr>
+                                            <td>
+                                              ${escapeHTML(
+                                                application.student.name
+                                              )}
+                                            </td>
+
+                                            <td>
+                                              ${escapeHTML(
+                                                application.student.branch
+                                              )}
+                                            </td>
+
+                                            <td>
+                                              ${getStatusBadge(
+                                                application.status
+                                              )}
+                                            </td>
+
+                                            <td>
+                                              <button
+                                                class="btn primary"
+                                                onclick="
+                                                  updateIndustryApplication(
+                                                    '${application.student.id}',
+                                                    '${application.id}'
+                                                  )
+                                                "
+                                              >
+                                                Update
+                                              </button>
+                                            </td>
+                                          </tr>
+                                        `
+                                      )
+                                      .join("")}
+                                  </tbody>
+                                </table>
+                              </div>
+                            `
+                            : `
+                              <p class="muted">
+                                No students have applied yet.
+                              </p>
+                            `
+                        }
+                      </div>
+                    `;
+                  })
+                  .join("")
+              : `
+                <p class="empty">
+                  No opportunities posted yet.
+                </p>
+              `
+          }
+        </section>
+      `;
+    }
+
+    function renderIndustrySkillRequirements(
+      opportunities
+    ) {
+      const skills = {};
+
+      opportunities.forEach((opportunity) => {
+        opportunity.skills.forEach((skill) => {
+          skills[skill] =
+            (skills[skill] || 0) + 1;
+        });
+      });
+
+      document.getElementById("content").innerHTML = `
+        <section class="card">
+          <h2>Skill Requirements</h2>
+
+          ${
+            Object.keys(skills).length
+              ? Object.entries(skills)
+                  .map(
+                    ([skill, count]) => `
+                      <div class="card">
+                        <h3>
+                          ${escapeHTML(skill)}
+                        </h3>
+
+                        <p>
+                          Required by
+                          <strong>
+                            ${count}
+                          </strong>
+                          opportunity(s)
+                        </p>
+
+                        <div class="progress">
+                          <span
+                            style="
+                              width:${Math.min(
+                                count * 30,
+                                100
+                              )}%
+                            "
+                          ></span>
+                        </div>
+                      </div>
+                    `
+                  )
+                  .join("")
+              : `
+                <p class="empty">
+                  No skill requirements found.
+                </p>
+              `
+          }
+        </section>
+      `;
+    }
+
+    function renderIndustryCandidates(
+      applications,
+      opportunities,
+      onlyShortlisted
+    ) {
+      const candidates =
+        onlyShortlisted
+          ? applications.filter(
+              (application) =>
+                application.status ===
+                "Shortlisted"
+            )
+          : applications;
+
+      document.getElementById("content").innerHTML = `
+        <section class="card">
+          <div class="toolbar">
+            <div>
+              <h2>
+                ${
+                  onlyShortlisted
+                    ? "Shortlisted Candidates"
+                    : "All Candidates"
+                }
+              </h2>
+
+              <p class="muted">
+                ${
+                  onlyShortlisted
+                    ? "Candidates moved forward."
+                    : "All students who applied to your opportunities."
+                }
+              </p>
+            </div>
+
+            <input
+              id="candidateSearch"
+              placeholder="Search candidates"
+              oninput="filterIndustryCandidates()"
+            >
+          </div>
+
+          <div id="candidateCards">
+            ${
+              candidates.length
+                ? candidates
+                    .map((application) => {
+                      const opportunity =
+                        opportunities.find(
+                          (item) =>
+                            item.id ===
+                            application.opportunityId
+                        );
+
+                      return `
+                        <div class="card candidate-card">
+                          <h3>
+                            ${escapeHTML(
+                              application.student.name
+                            )}
+                          </h3>
+
+                          <p>
+                            Branch:
+                            ${escapeHTML(
+                              application.student.branch
+                            )}
+                          </p>
+
+                          <p>
+                            Opportunity:
+                            ${escapeHTML(
+                              opportunity?.title ||
+                                "Unknown"
+                            )}
+                          </p>
+
+                          <p>
+                            Applied date:
+                            ${escapeHTML(
+                              application.date
+                            )}
+                          </p>
+
+                          <p>
+                            Status:
+                            ${getStatusBadge(
+                              application.status
+                            )}
+                          </p>
+
+                          <p>
+                            Skills:
+                            ${application.student.skills
+                              .map(
+                                (skill) =>
+                                  `<span class="tag">
+                                    ${escapeHTML(
+                                      skill.name
+                                    )}
+                                    —
+                                    ${skill.level}%
+                                  </span>`
+                              )
+                              .join("")}
+                          </p>
+
+                          <button
+                            class="btn outline"
+                            onclick="
+                              viewIndustryStudent(
+                                '${application.student.id}'
+                              )
+                            "
+                          >
+                            View profile
+                          </button>
+
+                          <button
+                            class="btn primary"
+                            onclick="
+                              updateIndustryApplication(
+                                '${application.student.id}',
+                                '${application.id}'
+                              )
+                            "
+                          >
+                            Update status
+                          </button>
+                        </div>
+                      `;
+                    })
+                    .join("")
+                : `
+                  <p class="empty">
+                    No candidates found.
+                  </p>
+                `
+            }
+          </div>
+        </section>
+      `;
+    }
+
+    function filterIndustryCandidates() {
+      const query =
+        document.getElementById(
+          "candidateSearch"
+        ).value.toLowerCase();
+
+      document
+        .querySelectorAll(
+          ".candidate-card"
+        )
+        .forEach((card) => {
+          card.style.display =
+            card.textContent
+              .toLowerCase()
+              .includes(query)
+              ? "block"
+              : "none";
+        });
+    }
+
+    function viewIndustryStudent(
+      studentId
+    ) {
+      const student =
+        database.students.find(
+          (item) =>
+            item.id === studentId
+        );
+
+      if (!student) {
+        return;
+      }
+
+      alert(
+        `Name: ${student.name}\n` +
+        `Email: ${student.email}\n` +
+        `Branch: ${student.branch}\n` +
+        `Year: ${student.year}\n\n` +
+        `Skills:\n` +
+        student.skills
+          .map(
+            (skill) =>
+              `${skill.name}: ${skill.level}%`
+          )
+          .join("\n")
+      );
+    }
+
+    function updateIndustryApplication(
+      studentId,
+      applicationId
+    ) {
+      const student =
+        database.students.find(
+          (item) =>
+            item.id === studentId
+        );
+
+      if (!student) {
+        return;
+      }
+
+      const application =
+        student.applications.find(
+          (item) =>
+            item.id === applicationId
+        );
+
+      if (!application) {
+        return;
+      }
+
+      const newStatus = prompt(
+        "Enter status: Applied, Under Review, Shortlisted, Interview, Selected, Rejected",
+        application.status
+      );
+
+      if (!newStatus) {
+        return;
+      }
+
+      application.status = newStatus;
+
+      student.notifications.unshift({
+        title: "Application status updated",
+        message:
+          `Your application status is now ${newStatus}.`,
+        date: today(),
+        unread: true
+      });
+
+      saveDatabase();
+      showToast(
+        "Application status updated."
+      );
+
+      renderApplication();
+    }
+
+    function renderIndustryCollegeCollaborations(
+      industry
+    ) {
+      const collaborations =
+        database.collaborations.filter(
+          (item) =>
+            item.industryId === industry.id
+        );
+
+      document.getElementById("content").innerHTML = `
+        <section class="card">
+          <div class="toolbar">
+            <div>
+              <h2>
+                College Collaboration
+              </h2>
+
+              <p class="muted">
+                Manage your company-college partnerships.
+              </p>
+            </div>
+
+            <button
+              class="btn primary"
+              onclick="
+                addIndustryCollegeCollaboration()
+              "
+            >
+              Add college
+            </button>
+          </div>
+
+          ${
+            collaborations.length
+              ? `
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>College</th>
+                        <th>Type</th>
+                        <th>Contact</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      ${collaborations
+                        .map((item) => {
+                          const college =
+                            database.colleges.find(
+                              (collegeItem) =>
+                                collegeItem.id ===
+                                item.collegeId
+                            );
+
+                          return `
+                            <tr>
+                              <td>
+                                ${escapeHTML(
+                                  college?.name ||
+                                    "Unknown"
+                                )}
+                              </td>
+
+                              <td>
+                                ${escapeHTML(
+                                  item.type
+                                )}
+                              </td>
+
+                              <td>
+                                ${escapeHTML(
+                                  item.contact
+                                )}
+                              </td>
+
+                              <td>
+                                ${getStatusBadge(
+                                  item.status
+                                )}
+                              </td>
+
+                              <td>
+                                <button
+                                  class="btn danger"
+                                  onclick="
+                                    deleteIndustryCollegeCollaboration(
+                                      '${item.id}'
+                                    )
+                                  "
+                                >
+                                  Delete
+                                </button>
+                              </td>
+                            </tr>
+                          `;
+                        })
+                        .join("")}
+                    </tbody>
+                  </table>
+                </div>
+              `
+              : `
+                <p class="empty">
+                  No college collaborations found.
+                </p>
+              `
+          }
+        </section>
+      `;
+    }
+
+    function addIndustryCollegeCollaboration() {
+      const collegeName = prompt(
+        "Enter existing college name:"
+      );
+
+      if (!collegeName) {
+        return;
+      }
+
+      const type = prompt(
+        "Collaboration type:",
+        "Placement Partnership"
+      );
+
+      const contact = prompt(
+        "Contact email:"
+      );
+
+      const college =
+        database.colleges.find(
+          (item) =>
+            item.name
+              .toLowerCase() ===
+            collegeName
+              .trim()
+              .toLowerCase()
+        );
+
+      if (!college || !type || !contact) {
+        showToast(
+          "Enter a valid college and complete all fields."
+        );
+
+        return;
+      }
+
+      const industry = getCurrentUser();
+
+      database.collaborations.push({
+        id: createId("collaboration"),
+        collegeId: college.id,
+        industryId: industry.id,
+        type,
+        contact,
+        since: new Date().getFullYear(),
+        status: "Active"
+      });
+
+      saveDatabase();
+      showToast(
+        "College collaboration added."
+      );
+
+      renderApplication();
+    }
+
+    function deleteIndustryCollegeCollaboration(
+      collaborationId
+    ) {
+      if (!confirm("Delete this collaboration?")) {
+        return;
+      }
+
+      database.collaborations =
+        database.collaborations.filter(
+          (item) =>
+            item.id !== collaborationId
+        );
+
+      saveDatabase();
+      showToast(
+        "College collaboration deleted."
+      );
+
+      renderApplication();
+    }
+
+    function renderIndustryAnalytics(
+      industry,
+      opportunities,
+      applications
+    ) {
+      const shortlisted =
+        applications.filter(
+          (application) =>
+            application.status ===
+            "Shortlisted"
+        ).length;
+
+      const selected =
+        applications.filter(
+          (application) =>
+            application.status ===
+            "Selected"
+        ).length;
+
+      const collegeCounts = {};
+      const skillCounts = {};
+
+      applications.forEach((application) => {
+        const college =
+          database.colleges.find(
+            (item) =>
+              item.id ===
+              application.student.collegeId
+          );
+
+        const name =
+          college?.name ||
+          "Unknown college";
+
+        collegeCounts[name] =
+          (collegeCounts[name] || 0) + 1;
+      });
+
+      opportunities.forEach((opportunity) => {
+        opportunity.skills.forEach((skill) => {
+          skillCounts[skill] =
+            (skillCounts[skill] || 0) + 1;
+        });
+      });
+
+      document.getElementById("content").innerHTML = `
+        <div class="cards">
+          ${statistic(
+            "Jobs",
+            industry.jobs.length
+          )}
+
+          ${statistic(
+            "Internships",
+            industry.internships.length
+          )}
+
+          ${statistic(
+            "Applications",
+            applications.length
+          )}
+
+          ${statistic(
+            "Selected",
+            selected
+          )}
+        </div>
+
+        <div class="grid">
+          <section class="card">
+            <h2>Hiring funnel</h2>
+
+            <p>
+              Applications:
+              <strong>
+                ${applications.length}
+              </strong>
+            </p>
+
+            <p>
+              Shortlisted:
+              <strong>
+                ${shortlisted}
+              </strong>
+            </p>
+
+            <p>
+              Selected:
+              <strong>
+                ${selected}
+              </strong>
+            </p>
+          </section>
+
+          <section class="card">
+            <h2>Applications by college</h2>
+
+            ${
+              Object.keys(collegeCounts).length
+                ? Object.entries(collegeCounts)
+                    .map(
+                      ([college, count]) => `
+                        <p>
+                          ${escapeHTML(
+                            college
+                          )}
+                          —
+                          <strong>
+                            ${count}
+                          </strong>
+                        </p>
+                      `
+                    )
+                    .join("")
+                : `
+                  <p class="empty">
+                    No application data available.
+                  </p>
+                `
+            }
+          </section>
+        </div>
+
+        <section class="card">
+          <h2>Skill demand</h2>
+
+          ${
+            Object.keys(skillCounts).length
+              ? Object.entries(skillCounts)
+                  .map(
+                    ([skill, count]) => `
+                      <p>
+                        <span class="tag">
+                          ${escapeHTML(skill)}
+                        </span>
+
+                        Required by
+                        <strong>
+                          ${count}
+                        </strong>
+                        opportunity(s)
+                      </p>
+
+                      <div class="progress">
+                        <span
+                          style="
+                            width:${Math.min(
+                              count * 30,
+                              100
+                            )}%
+                          "
+                        ></span>
+                      </div>
+                    `
+                  )
+                  .join("")
+              : `
+                <p class="empty">
+                  No skill demand data available.
+                </p>
+              `
+          }
+        </section>
+      `;
+    }
+
+    function resetDemoData() {
+      if (!confirm("Reset all demo data?")) {
+        return;
+      }
+
+      database =
+        JSON.parse(
+          JSON.stringify(SEED)
+        );
+
+      saveDatabase();
+
+      session = null;
+      currentRole = "student";
+      currentPage = "Dashboard";
+
+      showLanding();
+    }
+
+    showLanding();
+  </script>
+</body>
+</html>
